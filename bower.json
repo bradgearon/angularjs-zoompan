@@ -1,0 +1,12 @@
+{
+  "name": "parfocal",
+  "version": "0.0.1",
+  "dependencies": {},
+  "devDependencies": {
+    "angular": "latest",
+    "angular-mocks": "latest",
+    "jquery": "latest",
+    "paper": "https://github.com/bradgearon/paper.js/tarball/master",
+    "hammerjs": "~1.0.6"
+  }
+}
