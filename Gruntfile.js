@@ -7,6 +7,7 @@ module.exports = function (grunt) {
     var yoConfig = {
         livereload: 35729,
         src: 'src',
+        less: 'less',
         dist: 'dist'
     };
 
@@ -58,14 +59,14 @@ module.exports = function (grunt) {
                 tasks: []
             },
             less: {
-                files: ['<%= yo.src %>/{,*/}*.less'],
+                files: ['<%= yo.less %>/{,*/}*.less'],
                 tasks: ['less:dist']
             },
             app: {
                 files: [
-          '<%= yo.src %>/{,*/}*.html',
-          '{.tmp,<%= yo.src %>}/{,*/}*.css',
-          '{.tmp,<%= yo.src %>}/{,*/}*.js'
+                    '<%= yo.src %>/{,*/}*.html',
+                    '{.tmp,<%= yo.src %>}/{,*/}*.css',
+                    '{.tmp,<%= yo.src %>}/{,*/}*.js'
         ],
                 options: {
                     livereload: yoConfig.livereload
@@ -96,12 +97,14 @@ module.exports = function (grunt) {
         less: {
             options: {
                 // dumpLineNumbers: 'all',
-                paths: ['<%= yo.src %>']
+                paths: ['<%= yo.less %>']
             },
             dist: {
-                files: {
-                    '<%= yo.src %>/<%= yo.name %>.css': '<%= yo.src %>/<%= yo.name %>.less'
-                }
+                expand: true,
+                cwd: '<%= yo.less %>',
+                src: '**.less',
+                dest: 'styles/',
+                ext: '.css'
             }
         },
         jshint: {
@@ -172,25 +175,30 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', [
-    'jshint',
-    'karma:unit'
-  ]);
+        'jshint',
+        'karma:unit'
+    ]);
 
     grunt.registerTask('build', [
-    'clean:dist',
-    'less:dist',
-    'ngmin:dist',
-    'uglify:dist'
-  ]);
+        'clean:dist',
+        'less:dist',
+        'ngmin:dist',
+        'uglify:dist'
+    ]);
 
     grunt.registerTask('release', [
-    'test',
-    'bump-only',
-    'dist',
-    'bump-commit'
-  ]);
+        'test',
+        'bump-only',
+        'dist',
+        'bump-commit'
+    ]);
 
-    grunt.registerTask('server', ['connect', 'watch']);
+    grunt.registerTask('server', [
+        'less:dist', 
+        'connect', 
+        'watch'
+    ]);
+    
     grunt.registerTask('default', ['build']);
 
 };

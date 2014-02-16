@@ -1,10 +1,10 @@
 'use strict';
 define([
     'app',
-    'directives/index',
-    'controllers/index'
+    'angular',
+    'controllers/creeper',
 ],
-    function (app) {
+    function (app, angular) {
         app.config([
             '$routeProvider', '$locationProvider',
             function ($routeProvider, $locationProvider) {

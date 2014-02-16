@@ -87,14 +87,13 @@ define([
                         var scale = clamp((scope.scale || 1) + wheelDelta * .1,
                             Math.min(scope.minScale.height, scope.minScale.width),
                             5);
-                        
+
                         scope.zoomPoint = new point(event.clientX, event.clientY)
                             .subtract(scope.rect.center).subtract(scope.bounds.topLeft);
                         scope.center = scope.rect.center.clone();
-                        
+
                         scope.$apply(function () {
                             scope.scale = scale;
-                            // scope.rect.center = 
                         });
                     });
 
@@ -143,10 +142,7 @@ define([
                         ].join(' ');
 
                     }, true);
-
-
                 };
-
-                    }])
+        }])
     }
 );

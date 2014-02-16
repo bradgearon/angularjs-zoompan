@@ -1,10 +1,9 @@
 define([
     'angular',
     'angular-resource',
-    'angular-route',
-    'paper'
+    'angular-route'
 ],
-function (angular, resource, route, paper) {
+function (angular, resource, route) {
     
     var app = angular.module('parfocal', [
         'ngResource', 'ngRoute'
