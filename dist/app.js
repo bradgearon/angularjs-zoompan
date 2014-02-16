@@ -143,10 +143,10 @@ require.config({
           event.preventDefault();
           var wheelDelta = clamp(event.wheelDelta, -1, 1);
           var scale = clamp((scope.scale || 1) + wheelDelta * 0.1, Math.min(scope.minScale.height, scope.minScale.width), 5);
-          scope.zoomPoint = new point(event.clientX, event.clientY).subtract(scope.rect.center).subtract(scope.bounds.topLeft);
-          scope.center = scope.rect.center.clone();
+          var zoomPoint = new point(event.clientX, event.clientY).subtract(scope.bounds.center).multiply(scale - scope.scale).multiply(scale);
           scope.$apply(function () {
             scope.scale = scale;
+            scope.topLeft = scope.topLeft.subtract(zoomPoint);
           });
         });
         scope.$watch('topLeft', function (val, valn) {
