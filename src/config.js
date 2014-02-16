@@ -1,22 +1,21 @@
 'use strict';
-define([
+define('config', [
     'app',
-    'angular',
     'controllers/creeper',
     'directives/zoom'
 ],
-    function (app, angular) {
+    function (app) {
+        // configure the app and dependent services
         app.config([
             '$routeProvider', '$locationProvider',
             function ($routeProvider, $locationProvider) {
                 $locationProvider.html5Mode(true);
-                $routeProvider.when('/', {
+                $routeProvider.otherwise({
                   controller:'CreeperCtrl',
                   templateUrl:'views/creeper.html'
                 });
              }
         ]);
-
-        angular.bootstrap(document, ['parfocal']);
+        return app;
     }
 );

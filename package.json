@@ -1,7 +1,7 @@
 {
-  "name": "parfocal",
+  "name": "angular-zoompan",
   "version": "0.0.1",
-  "description": "parfocal",
+  "description": "angular-zoompan",
   "keywords": [
     "angular"
   ],
@@ -44,6 +44,7 @@
     "karma-requirejs": "~0.1.0",
     "karma-coffee-preprocessor": "~0.1.0",
     "karma-phantomjs-launcher": "~0.1.0",
-    "karma": "~0.10.2"
+    "karma": "~0.10.2",
+    "grunt-contrib-requirejs": "~0.4.1"
   }
 }

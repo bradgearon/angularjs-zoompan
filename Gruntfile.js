@@ -144,14 +144,16 @@ module.exports = function (grunt) {
                 banner: '<%= meta.banner %>'
             },
             dist: {
-                src: ['<%= yo.src %>/<%= pkg.name %>.js'],
-                dest: '<%= yo.dist %>/<%= pkg.name %>.js'
+                src: [
+                    '<%= yo.src %>/r.config.js',
+                    '<%= yo.src %>/app.js',
+                    '<%= yo.src %>/app.config.js',
+                    '<%= yo.src %>/services/{*,/}*.js',
+                    '<%= yo.src %>/directives/{*,/}*.js',
+                    '<%= yo.src %>/controllers/{*,/}*.js'
+                ],
+                dest: '<%= yo.dist %>/app.js'
             }
-            // dist: {
-            //   files: {
-            //     '/.js': '/.js'
-            //   }
-            // }
         },
         concat: {
             options: {
@@ -159,8 +161,8 @@ module.exports = function (grunt) {
                 stripBanners: true
             },
             dist: {
-                src: ['<%= yo.src %>/<%= pkg.name %>.js'],
-                dest: '<%= yo.dist %>/<%= pkg.name %>.js'
+                src: ['<%= yo.src %>/**.js'],
+                dest: '<%= yo.dist %>/app.js'
             }
         },
         uglify: {
@@ -169,7 +171,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: '<%= concat.dist.dest %>',
-                dest: '<%= yo.dist %>/<%= pkg.name %>.min.js'
+                dest: '<%= yo.dist %>/app.min.js'
             }
         }
     });

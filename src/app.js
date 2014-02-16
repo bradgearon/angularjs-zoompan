@@ -1,12 +1,14 @@
-define([
+define('app', [
     'angular',
     'angular-resource',
     'angular-route'
 ],
 function (angular, resource, route) {
-    
-    var app = angular.module('parfocal', [
-        'ngResource', 'ngRoute'
+    // define the module (app)
+    var app = angular.module('app-example', [
+        // module dependencies
+        'ngResource', 
+        'ngRoute'
     ]);
     return app;
     

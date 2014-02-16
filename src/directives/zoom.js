@@ -1,10 +1,12 @@
-define([
+
+define('directives/zoom', [
     'app',
     'matrix',
     'rectangle',
     'point',
     'size',
-    'hammer'
+    'hammer',
+    'services/events'
 ],
     function (app, matrix, rectangle, point, size, Hammer) {
         app.directive('pfZoom', ['$log', '$window',

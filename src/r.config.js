@@ -1,3 +1,4 @@
+// configure require (shim non-amd modules)
 require.config({
     baseUrl: 'src',
     paths: {

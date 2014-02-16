@@ -1,4 +1,4 @@
-define([
+define('services/events', [
     'app',
     'hammer'
 ],
