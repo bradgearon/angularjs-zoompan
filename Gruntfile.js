@@ -197,6 +197,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('server', [
         'less:dist', 
+        'ngmin:dist',
+        'uglify:dist',
         'connect', 
         'watch'
     ]);

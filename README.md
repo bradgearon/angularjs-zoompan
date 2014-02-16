@@ -13,8 +13,6 @@ Requires:
 * hammer
 * vector math libraries from paper.js (see [r.config.js][https://raw.github.com/bradgearon/angularjs-zoompan/master/src/r.config.js])
 
-In your web page:
-
 ```html
 <img pf-zoom pf-pan src="img/creeper.jpg">
 ```
