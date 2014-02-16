@@ -11,17 +11,7 @@
 </head>
 
 <body>
-    <script type="text/ng-template" id="views/creeper">
-        <img pf-zoom pf-pan src="img/creeper.jpg">
-        <div id="debug">
-        <pre>rect.center:{{rect.center}}</pre>
-        <pre>bounds:{{bounds.center}}</pre> 
-        <pre>extra:{{extra}}</pre> 
-        <pre>clamp:{{clampRect}}</pre>
-        <pre>{{zoomPoint}}</pre>
-        </div>
-    </script>
-    <div class="container" ng-view></div>
+    <div class="container" ng-view ></div>
     <script src="bower_components/requirejs/require.js"></script>
     <script src="src/r.config.js"></script>
     <script>

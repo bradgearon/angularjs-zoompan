@@ -1,6 +1,5 @@
 define([
-    'app',
-    'directives/zoom'
+    'app'
 ],
     function (app) {
         app.controller('CreeperCtrl', ['$scope',

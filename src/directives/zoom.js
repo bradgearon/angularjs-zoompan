@@ -7,11 +7,14 @@ define([
     'hammer'
 ],
     function (app, matrix, rectangle, point, size, Hammer) {
-        app.directive('pfZoom', ['$log',
-            function (log) {
+        app.directive('pfZoom', ['$log', '$window',
+            function (log, window) {
                 return function (scope, elem, attrs) {
-                    log.info(attrs);
-
+                    log.info(attrs);                                        
+                    var eventPoint, 
+                        lastEventPoint, 
+                        $window = angular.element(window);
+                    
                     var clamp = function (num, min, max) {
                         return Math.min(Math.max(num, min), max);
                     };
@@ -23,7 +26,6 @@ define([
 
                     var target = elem;
                     var parent = elem.parent();
-                    var marker = document.getElementById("marker");
 
                     scope.style = {};
                     scope.rect = {};
@@ -31,8 +33,7 @@ define([
                     // todo: move this to touchservice
                     var hammer = Hammer(elem[0]);
 
-                    elem.ready(function () {
-
+                    var calculateBounds = function () {
                         scope.bounds = new rectangle(parent[0].offsetLeft, parent[0].offsetTop,
                             parent[0].offsetWidth, parent[0].offsetHeight);
 
@@ -52,10 +53,11 @@ define([
                         scope.clampRect = new rectangle(scope.clamp, scope.rect.size);
 
                         scope.$apply();
-                    });
-
-                    var eventPoint, lastEventPoint;
-
+                    };
+                    
+                    elem.on('load', calculateBounds);
+                    $window.on('resize', calculateBounds);
+                    
                     hammer.on('dragstart', function (event) {
                         event.preventDefault();
                         if (!event.gesture) {
@@ -113,11 +115,11 @@ define([
                     });
 
                     scope.$watch('scale', function (val, valn) {
-                        if (val === null || val === valn) {
+                        if (val == Infinity || valn === val) {
                             return;
                         }
 
-                        log.info(val);
+                        log.info('scale', val);
                         scope.rect.size = scope.size.multiply(val);
 
                         var extra = scope.bounds.size.subtract(scope.rect.size);
