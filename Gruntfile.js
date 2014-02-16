@@ -45,9 +45,10 @@ module.exports = function (grunt) {
                 files: [{
                     dot: true,
                     src: [
-            '.tmp',
-            '<%= yo.dist %>/*',
-            '!<%= yo.dist %>/.git*'
+                        '.tmp',
+                        '<%= yo.dist %>/*',
+                        '!<%= yo.dist %>/.git*',
+                        '!<%= yo.dist %>/*.html'
           ]
         }]
             },
@@ -99,11 +100,18 @@ module.exports = function (grunt) {
                 // dumpLineNumbers: 'all',
                 paths: ['<%= yo.less %>']
             },
+            dev: {
+                expand: true,
+                cwd: '<%= yo.less %>',
+                src: '**.less',
+                dest: 'styles',
+                ext: '.css'
+            },
             dist: {
                 expand: true,
                 cwd: '<%= yo.less %>',
                 src: '**.less',
-                dest: 'styles/',
+                dest: 'dist/styles',
                 ext: '.css'
             }
         },
@@ -127,6 +135,22 @@ module.exports = function (grunt) {
                 src: ['test/**/*.js']
             }
         },
+        copy: {
+            img: {
+                expand: true,
+                cwd: 'img',
+                src: '**.jpg',
+                dest: 'dist/img',
+                ext: '.jpg'
+            },
+            views: {
+                expand: true,
+                cwd: 'views',
+                src: '**.html',
+                dest: 'dist/views',
+                ext: '.html'
+            }
+        },
         karma: {
             options: {
                 configFile: 'karma.conf.js',
@@ -137,6 +161,17 @@ module.exports = function (grunt) {
             },
             server: {
                 autoWatch: true
+            }
+        },
+        requirejs: {
+            dist: {
+                options: {
+                    mainConfigFile: '<%= yo.src %>/r.config.js',
+                    baseUrl: 'src',
+                    name: 'config',
+                    out: '<%=yo.dist %>/all.js',
+                    include: ['../bower_components/requirejs/require']
+                }
             }
         },
         ngmin: {
@@ -165,6 +200,7 @@ module.exports = function (grunt) {
                 dest: '<%= yo.dist %>/app.js'
             }
         },
+
         uglify: {
             options: {
                 banner: '<%= meta.banner %>'
@@ -184,8 +220,8 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'less:dist',
-        'ngmin:dist',
-        'uglify:dist'
+        'requirejs:dist',
+        'copy'
     ]);
 
     grunt.registerTask('release', [
@@ -196,13 +232,11 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('server', [
-        'less:dist', 
-        'ngmin:dist',
-        'uglify:dist',
-        'connect', 
+        'less:dev',
+        'connect',
         'watch'
     ]);
-    
+
     grunt.registerTask('default', ['build']);
 
 };
