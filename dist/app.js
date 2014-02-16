@@ -71,9 +71,14 @@ require.config({
 ], function (app, hammer) {
   app.service([
     'events',
-    function () {
+    'log',
+    function (log) {
       var Events = function () {
-        return {};
+        return {
+          onclick: function () {
+            log.info('click');
+          }
+        };
       };
     }
   ]);
