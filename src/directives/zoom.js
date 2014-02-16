@@ -93,13 +93,14 @@ define('directives/zoom', [
                             5);
 
                         // cursor relative to center of image
-                        scope.zoomPoint = new point(event.clientX, event.clientY)
-                            .subtract(scope.bounds.center).divide(scale);
-                        log.log(scope.rect.center);
-
+                        var zoomPoint = new point(event.clientX, event.clientY)
+                            .subtract(scope.bounds.center)
+                            .multiply(scale - scope.scale)
+                            .multiply(scale);
+                        
                         scope.$apply(function () {
                             scope.scale = scale;
-                            scope.topLeft = scope.topLeft.subtract(scope.zoomPoint);
+                            scope.topLeft =  scope.topLeft.subtract(zoomPoint);
                         });
                     });
 
